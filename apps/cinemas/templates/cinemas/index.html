@@ -1,0 +1,186 @@
+ {% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список кинотеатров</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .header {
+            background-color: #333;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+        .header .left-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .header .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .header .logo img {
+            height: 40px;
+        }
+        .header .menu {
+            display: flex;
+            gap: 15px;
+        }
+        .header .menu a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .header .menu a:hover {
+            background-color: #555;
+        }
+        .cinema-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 20px;
+            flex-grow: 1;
+        }
+        .cinema-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        .cinema-item img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+        .cinema-item h2 {
+            margin: 10px 0 5px 0;
+            font-size: 18px;
+        }
+        .cinema-item p {
+            margin: 0;
+            color: #666;
+        }
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="left-menu">
+            <div class="logo">
+                <img src="{% static 'images/logo.webp' %}" >
+            </div>
+            <a href="#">Фильмы</a>
+            <a href="#">Кинотеатры</a>
+        </div>
+        <div class="menu">
+            <a href="#">Вход</a>
+            <a href="#">Выход</a>
+        </div>
+    </header>
+    <div class="cinema-grid">
+        <div class="cinema-item">
+            <img src="{% static 'images/cinema1.jpg' %}" alt="Кинотеатр 1">
+            <h2>Кинотеатр 1</h2>
+            <p>ул. Примерная, д. 1</p>
+        </div>
+        <div class="cinema-item">
+            <img src="{% static 'images/cinema2.jpg' %}" alt="Кинотеатр 2">
+            <h2>Кинотеатр 2</h2>
+            <p>ул. Примерная, д. 2</p>
+        </div>
+        <div class="cinema-item">
+            <img src="{% static 'images/cinema3.jpg' %}" alt="Кинотеатр 3">
+            <h2>Кинотеатр 3</h2>
+            <p>ул. Примерная, д. 3</p>
+        </div>
+        <div class="cinema-item">
+            <img src="{% static 'images/cinema4.jpg' %}" alt="Кинотеатр 4">
+            <h2>Кинотеатр 4</h2>
+            <p>ул. Примерная, д. 4</p>
+        </div>
+        <div class="cinema-item">
+            <img src="{% static 'images/cinema5.jpg' %}" alt="Кинотеатр 5">
+            <h2>Кинотеатр 5</h2>
+            <p>ул. Примерная, д. 5</p>
+        </div>
+        <div class="cinema-item">
+            <img src="{% static 'images/cinema6.jpg' %}" alt="Кинотеатр 6">
+            <h2>Кинотеатр 6</h2>
+            <p>ул. Примерная, д. 6</p>
+        </div>
+        <div class="cinema-item">
+            <img src="{% static 'images/cinema7.jpg' %}" alt="Кинотеатр 7">
+            <h2>Кинотеатр 7</h2>
+            <p>ул. Примерная, д. 7</p>
+        </div>
+        <div class="cinema-item">
+            <img src="{% static 'images/cinema8.jpg' %}" alt="Кинотеатр 8">
+            <h2>Кинотеатр 8</h2>
+            <p>ул. Примерная, д. 8</p>
+        </div>
+        <div class="cinema-item">
+            <img src="{% static 'images/cinema9.jpg' %}" alt="Кинотеатр 9">
+            <h2>Кинотеатр 9</h2>
+            <p>ул. Примерная, д. 9</p>
+        </div>
+        <div class="cinema-item">
+            <img src="{% static 'images/cinema10.jpg' %}" alt="Кинотеатр 10">
+            <h2>Кинотеатр 10</h2>
+            <p>ул. Примерная, д. 10</p>
+        </div>
+        <div class="cinema-item">
+            <img src="{% static 'images/cinema11.jpg' %}" alt="Кинотеатр 11">
+            <h2>Кинотеатр 11</h2>
+            <p>ул. Примерная, д. 11</p>
+        </div>
+        <div class="cinema-item">
+            <img src="{% static 'images/cinema12.jpg' %}" alt="Кинотеатр 12">
+            <h2>Кинотеатр 12</h2>
+            <p>ул. Примерная, д. 12</p>
+        </div>
+        <div class="cinema-item">
+            <img src="{% static 'images/cinema13.jpg' %}" alt="Кинотеатр 13">
+            <h2>Кинотеатр 13</h2>
+            <p>ул. Примерная, д. 13</p>
+        </div>
+        <div class="cinema-item">
+            <img src="{% static 'images/cinema14.jpg' %}" alt="Кинотеатр 14">
+            <h2>Кинотеатр 14</h2>
+            <p>ул. Примерная, д. 14</p>
+        </div>
+        <div class="cinema-item">
+            <img src="{% static 'images/cinema15.jpg' %}" alt="Кинотеатр 15">
+            <h2>Кинотеатр 15</h2>
+            <p>ул. Примерная, д. 15</p>
+        </div>
+        <div class="cinema-item">
+            <img src="{% static 'images/cinema16.jpg' %}" alt="Кинотеатр 16">
+            <h2>Кинотеатр 16</h2>
+            <p>ул. Примерная, д. 16</p>
+        </div>
+    </div>
+    <footer class="footer">
+        © 2024 Bishkek Cinema. Все права защищены.
+    </footer>
+</body>
+</html>
