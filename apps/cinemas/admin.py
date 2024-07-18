@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.html import format_html
 
 from .models import Movie, Cinema, Hall, Row, Place, Session
 
@@ -11,7 +12,12 @@ class MovieAdmin(admin.ModelAdmin):
 
 @admin.register(Cinema)
 class CinemaAdmin(admin.ModelAdmin):
-    list_display = ['name', 'address', 'picture']
+    list_display = ['name', 'address', 'get_picture']
+
+    def get_picture(self, obj):
+        return format_html(f'<img src="{obj.picture.url}" width="250">')
+
+    get_picture.short_description = 'Фото'
 
 
 @admin.register(Hall)

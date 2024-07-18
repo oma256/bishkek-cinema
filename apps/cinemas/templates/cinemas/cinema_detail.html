@@ -1,4 +1,4 @@
- {% load static %}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -112,15 +112,14 @@
         </div>
     </header>
     <div class="cinema-grid">
-        {% for cinema in cinemas %}
-            <a href="{% url 'cinemas:detail' cinema.id %}">
-                <div class="cinema-item">
-                    <img src="{{ cinema.picture.url }}" alt="{{ cinema.name }}">
-                    <h2>{{ cinema.name }}</h2>
-                    <p>{{ cinema.address }}</p>
-                </div>
-            </a>
-        {% endfor %}
+        <!-- {% for movie in movies %}
+            <div class="cinema-item">
+                <img src="{{ movie.picture.url }}" alt="{{ movie.name }}">
+                <h2>{{ movie.name }}</h2>
+                <p>{{ movie.description }}</p>
+            </div>
+        {% endfor %} -->
+        <h1>worked detail</h1>
     </div>
     <footer class="footer">
         © 2024 Bishkek Cinema. Все права защищены.

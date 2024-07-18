@@ -1,10 +1,11 @@
 from django.urls import path
-from .views import index
+from .views import CinemaListView, CinemasDetailView
 
 
 app_name = 'cinemas'
 
 
 urlpatterns = [
-    path('', index, name='index')
+    path('', CinemaListView.as_view(), name='index'),
+    path('<int:pk>/', CinemasDetailView.as_view(), name='detail')
 ]
