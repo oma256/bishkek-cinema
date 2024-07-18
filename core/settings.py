@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'apps.cinemas',
     'apps.orders',
     'apps.payments',
+
+    'smart_selects',
 ]
 
 MIDDLEWARE = [

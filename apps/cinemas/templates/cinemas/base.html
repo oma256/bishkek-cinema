@@ -1,0 +1,32 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список кинотеатров</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header class="header">
+        <div class="left-menu">
+            <div class="logo">
+                <a href="{% url 'cinemas:index' %}">
+                    <img src="{% static 'images/logo.webp' %}" >
+                </a>
+            </div>
+            <a href="#" class="top-menu">Фильмы</a>
+            <a href="{% url 'cinemas:index' %}" class="top-menu">Кинотеатры</a>
+        </div>
+        <div class="menu">
+            <a href="#">Вход</a>
+            <a href="#">Выход</a>
+        </div>
+    </header>
+    {% block content %}{% endblock %}
+    <footer class="footer">
+        © 2024 Bishkek Cinema. Все права защищены.
+    </footer>
+</body>
+</html>

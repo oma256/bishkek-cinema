@@ -37,4 +37,4 @@ class PlaceAdmin(admin.ModelAdmin):
 
 @admin.register(Session)
 class SessionAdmin(admin.ModelAdmin):
-    list_display = ['start_time', 'price', 'movie', 'cinema']
+    list_display = ['start_time', 'price', 'movie', 'cinema', 'hall']

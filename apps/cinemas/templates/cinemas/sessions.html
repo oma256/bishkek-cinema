@@ -1,0 +1,15 @@
+{% extends 'cinemas/base.html' %}
+
+{% block content %}
+    <div class="cinema-grid">
+        {% for session in sessions %}
+            <a href="#">
+                <div class="cinema-item">
+                    <img src="{{ session.movie.picture.url }}">
+                    <h2>{{ session.movie.name }}</h2>
+                    <p>Цена: {{ session.price }} сом</p>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}

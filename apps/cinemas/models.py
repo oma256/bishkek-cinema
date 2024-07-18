@@ -1,6 +1,7 @@
 from django.db import models
 
 from utils.image_upload import upload_instance_image
+from smart_selects.db_fields import ChainedForeignKey
 
 
 class Movie(models.Model):
@@ -73,7 +74,16 @@ class Session(models.Model):
     cinema = models.ForeignKey(Cinema,
                                verbose_name='Кинотеатр',
                                on_delete=models.CASCADE)
-    
+    hall = ChainedForeignKey(
+        Hall,
+        verbose_name='Зал',
+        chained_field="cinema",
+        chained_model_field="cinema",
+        show_all=False,
+        auto_choose=True,
+        default=None,
+        sort=True
+    )
+
     def __str__(self) -> str:
         return f'Сеанс начало в {self.start_time}, цена {self.price}'
-    

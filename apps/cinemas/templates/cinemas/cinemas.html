@@ -1,0 +1,15 @@
+{% extends 'cinemas/base.html' %}
+
+{% block content %}
+    <div class="cinema-grid">
+        {% for cinema in cinemas %}
+            <a href="{% url 'cinemas:detail' cinema.id %}">
+                <div class="cinema-item">
+                    <img src="{{ cinema.picture.url }}" alt="{{ cinema.name }}">
+                    <h2>{{ cinema.name }}</h2>
+                    <p>{{ cinema.address }}</p>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}
