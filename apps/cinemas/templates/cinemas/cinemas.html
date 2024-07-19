@@ -1,9 +1,18 @@
 {% extends 'cinemas/base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Список кинотеатров</title>
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
 
 {% block content %}
     <div class="cinema-grid">
         {% for cinema in cinemas %}
-            <a href="{% url 'cinemas:detail' cinema.id %}">
+            <a href="{% url 'cinemas:sessions' cinema.id %}">
                 <div class="cinema-item">
                     <img src="{{ cinema.picture.url }}" alt="{{ cinema.name }}">
                     <h2>{{ cinema.name }}</h2>

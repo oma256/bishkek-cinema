@@ -15,6 +15,10 @@ class Movie(models.Model):
                                 upload_to=upload_instance_image,
                                 null=True,
                                 blank=True)
+    genre = models.CharField(verbose_name='Жанр', 
+                             max_length=128, 
+                             null=True, 
+                             blank=True)
 
     def __str__(self) -> str:
         return self.name

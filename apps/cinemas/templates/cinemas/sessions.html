@@ -1,9 +1,18 @@
 {% extends 'cinemas/base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Список сеансов</title>
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
 
 {% block content %}
     <div class="cinema-grid">
         {% for session in sessions %}
-            <a href="#">
+            <a href="{% url 'cinemas:session_detail' cinema_id=session.cinema_id session_id=session.id %}">
                 <div class="cinema-item">
                     <img src="{{ session.movie.picture.url }}">
                     <h2>{{ session.movie.name }}</h2>

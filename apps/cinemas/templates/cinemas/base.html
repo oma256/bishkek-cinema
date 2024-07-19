@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Список кинотеатров</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block title %}{% endblock %}
+    {% block style %}{% endblock %}
 </head>
 <body>
     <header class="header">
@@ -28,5 +28,6 @@
     <footer class="footer">
         © 2024 Bishkek Cinema. Все права защищены.
     </footer>
+    {% block script %}{% endblock %}
 </body>
 </html>

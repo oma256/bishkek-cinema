@@ -1,6 +1,72 @@
 {% extends 'cinemas/base.html' %}
+{% load static %}
 
+{% block title %}
+    <title>О фильме</title>
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/session_detail.css' %}">
+{% endblock %}
 
 {% block content %}
-    <h1>movie detail</h1>
+    <div class="content">
+        <div class="movie-details">
+            <img src="{{ session.movie.picture.url }}" alt="Фильм 1">
+            <div class="info">
+                <h2>{{ session.movie.name }}</h2>
+                <p>Жанр: {{ session.movie.genre }}</p>
+                <p>В главных ролях: {{ session.movie.starring }}</p>
+                <p>Год: {{ session.movie.year }}</p>
+                <p>Продолжительность: {{ session.movie.duration }} минут</p>
+                <p>Страна: {{ session.movie.country }}</p>
+                <p>Описание: {{ session.movie.description }}</p>
+                <button class="booking-button" onclick="openModal()">Забронировать</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Смерч 2</h2>
+            <p>19.07 21:20 | Дордой Плаза | Зал IMAX</п>
+            <div class="seats">
+                {% for seat in seats %}
+                    <div class="seat {% if seat.status == 'свободно' %}available{% elif seat.status == 'занято' %}taken{% else %}selected{% endif %}">
+                        {{ seat.row }}{{ seat.seat }}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="buttons">
+                <button class="cancel" onclick="closeModal()">Отмена</button>
+                <button class="buy">Купить</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Function to open the modal
+        function openModal() {
+            modal.style.display = "block";
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+        // Close the modal if the user clicks outside of it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 {% endblock %}
