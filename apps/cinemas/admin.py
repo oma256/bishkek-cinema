@@ -4,6 +4,9 @@ from django.utils.html import format_html
 from .models import Movie, Cinema, Hall, Row, Place, Session
 
 
+admin.site.site_header = 'Администрирование BISHKEK CINEMA'
+
+
 @admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
     list_display = ['name', 'description', 'country', 
@@ -32,8 +35,8 @@ class RowAdmin(admin.ModelAdmin):
 
 @admin.register(Place)
 class PlaceAdmin(admin.ModelAdmin):
-    list_display = ['number', 'row']
-
+    list_display = ['number', 'row', 'cinema', 'hall']
+    search_fields = ['cinema__name']
 
 @admin.register(Session)
 class SessionAdmin(admin.ModelAdmin):

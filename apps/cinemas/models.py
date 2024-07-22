@@ -23,6 +23,10 @@ class Movie(models.Model):
     def __str__(self) -> str:
         return self.name
 
+    class Meta:
+        verbose_name = 'Фильм'
+        verbose_name_plural = 'Фильмы'
+
 
 class Cinema(models.Model):
     name = models.CharField(verbose_name='Название')
@@ -34,6 +38,10 @@ class Cinema(models.Model):
 
     def __str__(self) -> str:
         return self.name
+    
+    class Meta:
+        verbose_name = 'Кинотеатр'
+        verbose_name_plural = 'Кинотеатры'
 
 
 class Hall(models.Model):
@@ -45,29 +53,98 @@ class Hall(models.Model):
 
     def __str__(self) -> str:
         return self.name
+    
+    class Meta:
+        verbose_name = 'Зал'
+        verbose_name_plural = 'Залы'
 
 
 class Row(models.Model):
     number = models.IntegerField(verbose_name='Ряд')
-    hall = models.ForeignKey(Hall,
-                             verbose_name='Зал',
-                             related_name='hall',
-                             on_delete=models.CASCADE)
+    cinema = models.ForeignKey(Cinema,
+                               verbose_name='Кинотеатр',
+                               on_delete=models.CASCADE,
+                               null=True)
+    hall = ChainedForeignKey(
+        Hall,
+        verbose_name='Зал',
+        chained_field="cinema",
+        chained_model_field="cinema",
+        show_all=False,
+        auto_choose=True,
+        default=None,
+        sort=True
+    )
 
     def __str__(self) -> str:
         return f'Ряд номер {self.number}'
     
+    class Meta:
+        verbose_name = 'Ряд'
+        verbose_name_plural = 'Ряды'
+
+
+# cinema = models.ForeignKey(Cinema,
+#                                verbose_name='Кинотеатр',
+#                                on_delete=models.CASCADE,
+#                                null=True)
+# hall = ChainedForeignKey(
+#     Hall,
+#     verbose_name='Зал',
+#     chained_field="cinema",
+#     chained_model_field="cinema",
+#     show_all=False,
+#     auto_choose=True,
+#     default=None,
+#     sort=True
+# )
+# row = ChainedForeignKey(
+#     Row,
+#     verbose_name='Ряд',
+#     chained_field="hall",
+#     chained_model_field="hall",
+#     show_all=False,
+#     auto_choose=True,
+#     default=None,
+#     sort=True
+# )
 
 class Place(models.Model):
     number = models.IntegerField(verbose_name='Место')
-    row = models.ForeignKey(Row,
-                            verbose_name='Ряд',
-                            related_name='row',
-                            on_delete=models.CASCADE)
-    
+    cinema = models.ForeignKey(Cinema,
+                               verbose_name='Кинотеатр',
+                               on_delete=models.CASCADE,
+                               null=True)
+    hall = ChainedForeignKey(
+        Hall,
+        verbose_name='Зал',
+        chained_field="cinema",
+        chained_model_field="cinema",
+        show_all=False,
+        auto_choose=True,
+        default=None,
+        sort=True,
+        null=True,
+    )
+    row = ChainedForeignKey(
+        Row,
+        verbose_name='Ряд',
+        chained_field="hall",
+        chained_model_field="hall",
+        show_all=False,
+        auto_choose=True,
+        default=None,
+        sort=True,
+        null=True,
+    )  
+
     def __str__(self) -> str:
         return f'Место номер {self.number}'
     
+    class Meta:
+        verbose_name = 'Место'
+        verbose_name_plural = 'Места'
+
 
 class Session(models.Model):
     start_time = models.DateTimeField(verbose_name='Время')
@@ -91,3 +168,7 @@ class Session(models.Model):
 
     def __str__(self) -> str:
         return f'Сеанс начало в {self.start_time}, цена {self.price}'
+
+    class Meta:
+        verbose_name = 'Сеанс'
+        verbose_name_plural = 'Сеансы'

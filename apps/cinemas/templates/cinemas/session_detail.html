@@ -30,19 +30,23 @@
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h2>Смерч 2</h2>
-            <p>19.07 21:20 | Дордой Плаза | Зал IMAX</п>
-            <div class="seats">
-                {% for seat in seats %}
-                    <div class="seat {% if seat.status == 'свободно' %}available{% elif seat.status == 'занято' %}taken{% else %}selected{% endif %}">
-                        {{ seat.row }}{{ seat.seat }}
-                    </div>
-                {% endfor %}
-            </div>
-            <div class="buttons">
-                <button class="cancel" onclick="closeModal()">Отмена</button>
-                <button class="buy">Купить</button>
-            </div>
+            <h2>{{ session.movie.name }}</h2>
+            <p>{{ session.start_time|date:'d.m H:i' }} | {{ session.cinema.name }} | Зал {{ session.hall.name }}</p>
+            <form action="{% url 'orders:order_request' %}" method="post">
+                {% csrf_token %}
+                <div class="seats">
+                    {% for seat in seats %}
+                        <div class="row">
+                            <input type="radio" id="{{ seat.row }}_{{ seat.seat }}" name="seat">
+                            <label for="seat-{{ seat.row }}-{{ seat.seat }}">{{ seat.row }}-{{ seat.seat }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="buttons">
+                    <button type="button" class="cancel" onclick="closeModal()">Отмена</button>
+                    <button type="submit" class="buy">Забронировать</button>
+                </div>
+            </form>
         </div>
     </div>
 {% endblock %}
@@ -69,4 +73,5 @@
             }
         }
     </script>
+    <script src="{% static 'js/script.js"></script>
 {% endblock %}

@@ -10,3 +10,7 @@ class Transfer(models.Model):
                               on_delete=models.SET_NULL)
     amount = models.IntegerField(verbose_name='Сумма')
     status = models.CharField(verbose_name='Статус')
+
+    class Meta:
+        verbose_name = 'Платеж'
+        verbose_name_plural = 'Платежи'

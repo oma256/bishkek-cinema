@@ -110,7 +110,7 @@ body {
 }
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto;
+    margin: 5% auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
@@ -129,30 +129,43 @@ body {
     cursor: pointer;
 }
 .seats {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
-    gap: 5px;
-    justify-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
 }
-.seat {
+.row {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+.seat input[type="radio"] {
+    display: none;
+}
+.seat label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 30px;
     height: 30px;
     background-color: #ddd;
     border: 1px solid #ccc;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     cursor: pointer;
     transition: background-color 0.3s;
 }
-.seat.available {
+.seat.available label {
     background-color: #fff;
 }
-.seat.taken {
+.seat.taken label {
     background-color: #333;
     color: white;
+    cursor: not-allowed;
 }
-.seat.selected {
+.seat.selected label {
+    background-color: #ff6347;
+    color: white;
+}
+.seat input[type="radio"]:checked + label {
     background-color: #ff6347;
     color: white;
 }
