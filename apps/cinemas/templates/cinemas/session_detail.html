@@ -32,19 +32,21 @@
             <span class="close" onclick="closeModal()">&times;</span>
             <h2>{{ session.movie.name }}</h2>
             <p>{{ session.start_time|date:'d.m H:i' }} | {{ session.cinema.name }} | Зал {{ session.hall.name }}</p>
-            <form action="{% url 'orders:order_request' %}" method="post">
+            <form>
                 {% csrf_token %}
                 <div class="seats">
-                    {% for seat in seats %}
-                        <div class="row">
-                            <input type="radio" id="{{ seat.row }}_{{ seat.seat }}" name="seat">
-                            <label for="seat-{{ seat.row }}-{{ seat.seat }}">{{ seat.row }}-{{ seat.seat }}</label>
-                        </div>
+                    {% for row in rows %}
+                        {% for seat in row %}
+                            <div class="row">
+                                <input type="checkbox" id="{{ seat.row }}_{{ seat.seat }}" name="seat">
+                                <label for="seat-{{ seat.row }}-{{ seat.seat }}">{{ seat.row }}-{{ seat.seat }}</label>
+                            </div>
+                        {% endfor %}
                     {% endfor %}
                 </div>
                 <div class="buttons">
                     <button type="button" class="cancel" onclick="closeModal()">Отмена</button>
-                    <button type="submit" class="buy">Забронировать</button>
+                    <button class="buy" id="order_btn">Забронировать</button>
                 </div>
             </form>
         </div>
@@ -72,6 +74,55 @@
                 modal.style.display = "none";
             }
         }
+
+        const orderBtn = document.getElementById('order_btn')
+        const sessionId = '{{ session.id }}'
+        const hallId = '{{ session.hall.id }}'
+        const cinemaId = '{{ session.cinema.id }}'
+        orderBtn.onclick = (e) => {
+            e.preventDefault()
+
+            const checkedCheckboxes = document.querySelectorAll('input[type="checkbox"]:checked')
+            let reserved_seats = []
+            checkedCheckboxes.forEach(function(checkbox) {
+                const data = {
+                    row: checkbox.id.split('_')[0],
+                    seat: checkbox.id.split('_')[1]
+                }
+                reserved_seats.push(data)
+            });
+            data = {
+                reserved_seats: reserved_seats, 
+                session_id: sessionId,
+                hall_id: hallId,
+                cinema_id: cinemaId,
+            }
+            console.log(data)
+            fetch('http://127.0.0.1:8000/orders/request/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'csrftoken': getCookie('csrftoken')
+                },
+                body: JSON.stringify(data)
+            }).then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json()
+            }).then(data => {
+                alert('Вы успешно забронировали места')
+                window.location.reload()
+            }).catch(error => {
+                alert('Ошибка', error)
+            })
+        }
+
+        const getCookie = (name) => {
+            return document.cookie.split(';').reduce((prev, c) => {
+                let arr = c.split('=');
+                return (arr[0].trim() === name) ? arr[1] : prev;
+            }, undefined);
+        };
     </script>
-    <script src="{% static 'js/script.js"></script>
 {% endblock %}

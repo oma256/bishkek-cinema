@@ -34,13 +34,17 @@ class SessionDetailView(TemplateView):
         data = super().get_context_data(**kwargs)
         session_id = self.kwargs.get('session_id')
         session = Session.objects.filter(id=session_id).first()
-        seats = []
-        rows = Row.objects.filter(hall_id=session.hall_id)
-        for row in rows:
+        rows = []
+        rows_list = Row.objects.filter(hall_id=session.hall_id)
+        
+        for row in rows_list:
             places = Place.objects.filter(row_id=row.id)
+            temp = []
             for place in places:
-                seats.append({'row': row.number, 'seat': place.number})
+                temp.append({'row': row.number, 'seat': place.number})
+            rows.append(temp)
+
         data['session'] = session
-        data['seats'] = seats
+        data['rows'] = rows
 
         return data

@@ -164,7 +164,7 @@ class Session(models.Model):
         auto_choose=True,
         default=None,
         sort=True
-    )
+    ) 
 
     def __str__(self) -> str:
         return f'Сеанс начало в {self.start_time}, цена {self.price}'
