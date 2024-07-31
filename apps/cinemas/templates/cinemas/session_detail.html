@@ -38,7 +38,7 @@
                     {% for row in rows %}
                         {% for seat in row %}
                             <div class="row">
-                                <input type="checkbox" id="{{ seat.row }}_{{ seat.seat }}" name="seat">
+                                <input type="checkbox" id="{{ seat.row_id }}_{{ seat.seat_id }}" name="seat">
                                 <label for="seat-{{ seat.row }}-{{ seat.seat }}">{{ seat.row }}-{{ seat.seat }}</label>
                             </div>
                         {% endfor %}

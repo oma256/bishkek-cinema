@@ -16,7 +16,7 @@
                     <img src="{% static 'images/logo.webp' %}" >
                 </a>
             </div>
-            <a href="#" class="top-menu">Фильмы</a>
+            <a href="{% url 'cinemas:movies' %}" class="top-menu">Фильмы</a>
             <a href="{% url 'cinemas:index' %}" class="top-menu">Кинотеатры</a>
         </div>
         <div class="menu">
