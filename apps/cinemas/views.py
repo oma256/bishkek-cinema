@@ -3,6 +3,7 @@ from typing import Any
 from django.views.generic import TemplateView
 
 from apps.cinemas.models import Cinema, Hall, Place, Row, Session
+from apps.orders.models import Order
 
 
 class CinemaListView(TemplateView):
@@ -41,12 +42,27 @@ class SessionDetailView(TemplateView):
             places = Place.objects.filter(row_id=row.id)
             temp = []
             for place in places:
-                temp.append({
-                    'row': row.number, 
-                    'seat': place.number,
-                    'row_id': row.id,
-                    'seat_id': place.id,
-                })
+                order = Order.objects.filter(session_id = int(session_id), 
+                                             row_id = row.id,
+                                             place_id = place.id).first()
+
+                if order:
+                    temp.append({
+                        'row': row.number, 
+                        'seat': place.number,
+                        'row_id': row.id,
+                        'seat_id': place.id,
+                        'disabled': True
+                    })
+                else:
+                    temp.append({
+                        'row': row.number, 
+                        'seat': place.number,
+                        'row_id': row.id,
+                        'seat_id': place.id,
+                        'disabled': False
+                    })
+
             rows.append(temp)
 
         data['session'] = session
@@ -75,5 +91,16 @@ class CinemaSessionListView(TemplateView):
         cinemas = Cinema.objects.filter(session__isnull=False, 
                                         session__movie_id=movie_id).distinct()
         data['cinemas'] = cinemas
+
+        return data
+
+
+class OrderListView(TemplateView):
+    template_name = 'cinemas/orders.html'
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        data = super().get_context_data(**kwargs)
+        user_id = self.request.user.id
+        data['orders'] = Order.objects.filter(user__id = user_id)
 
         return data

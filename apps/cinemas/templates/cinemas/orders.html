@@ -1,0 +1,65 @@
+{% extends 'cinemas/base.html' %}
+{% load static %}
+
+{% block title %}<title>Карта</title>{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .content {
+            flex: 1;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="wrapper">
+    <div class="content">
+        <h1>История покупок</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>№ покупки</th>
+                    <th>Дата покупки</th>
+                    <th>Кинотеатр</th>
+                    <th>Зал</th>
+                    <th>Фильм</th>
+                    <th>Сеанс</th>
+                    <th>Места</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.date_create }}</td>
+                        <td>{{ order.cinema.name }}</td>
+                        <td>Зал {{ order.hall.name }}</td>
+                        <td>{{ order.session.movie.name }}</td>
+                        <td>{{ order.session.start_time }}</td>
+                        <td>Ряд – {{ order.row.number }}, место – {{ order.place.number }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

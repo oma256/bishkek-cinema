@@ -33,6 +33,7 @@ class Order(models.Model):
                                        auto_now=True)
     active = models.BooleanField(verbose_name='Активный', default=False)
     scanned = models.BooleanField(verbose_name='Отсканированный', default=False)
+    booked = models.BooleanField(verbose_name='Забронирован', default=True)
 
     def __str__(self) -> str:
         return f'Заказ на имя {self.user}'

@@ -5,6 +5,7 @@ from .views import (
     MovieListView, 
     SessionListView, 
     SessionDetailView,
+    OrderListView,
 )
 
 
@@ -20,4 +21,5 @@ urlpatterns = [
     path('movies/', MovieListView.as_view(), name='movies'),
     path('movies/<int:movie_id>/cinemas/<int:cinema_id>', 
          CinemaSessionListView.as_view(), name='cinema_sessions'),
+    path('orders', OrderListView.as_view(), name='orders'),
 ]

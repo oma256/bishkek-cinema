@@ -38,7 +38,11 @@
                     {% for row in rows %}
                         {% for seat in row %}
                             <div class="row">
-                                <input type="checkbox" id="{{ seat.row_id }}_{{ seat.seat_id }}" name="seat">
+                                {% if seat.disabled == True %}
+                                    <input type="checkbox" id="{{ seat.row_id }}_{{ seat.seat_id }}" name="seat" disabled>
+                                {% else %}
+                                    <input type="checkbox" id="{{ seat.row_id }}_{{ seat.seat_id }}" name="seat">
+                                {% endif %}
                                 <label for="seat-{{ seat.row }}-{{ seat.seat }}">{{ seat.row }}-{{ seat.seat }}</label>
                             </div>
                         {% endfor %}
@@ -111,7 +115,12 @@
                 }
                 return response.json()
             }).then(data => {
-                alert('Вы успешно забронировали места')
+                console.log(data)
+                if (data.status == 'FAILED') {
+                    alert('Выбранное место забронировано')
+                } else {
+                    alert('Вы успешно забронировали места') 
+                }
                 window.location.reload()
             }).catch(error => {
                 alert('Ошибка', error)
