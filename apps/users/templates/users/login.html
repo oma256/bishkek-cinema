@@ -1,0 +1,49 @@
+{% extends "cinemas/base.html" %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .content {
+            flex: 1;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="wrapper">
+        <div class="content">
+            <div class="column is-4 is-offset-4">
+                <center><h3 class="title">Авторизация</h3></center>
+                <div class="box">
+                    {% for message in messages %}
+                        <div class="notification is-danger">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    <form method="POST" action="{% url 'users:login' %}">
+                        {% csrf_token %}
+                        <div class="field">
+                            <div class="control">
+                                <input class="input is-large" type="email" name="email" placeholder="Почта" autofocus="">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <input class="input is-large" type="password" name="password" placeholder="Пароль">
+                            </div>
+                        </div>
+
+                        <button class="button is-block is-info is-large is-fullwidth">Вход</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

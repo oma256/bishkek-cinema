@@ -21,7 +21,12 @@
                 <p>Продолжительность: {{ session.movie.duration }} минут</p>
                 <p>Страна: {{ session.movie.country }}</p>
                 <p>Описание: {{ session.movie.description }}</p>
-                <button class="booking-button" onclick="openModal()">Забронировать</button>
+
+                {% if user.is_authenticated %}
+                    <button class="booking-button" onclick="openModal()">Забронировать</button>
+                {% else %}
+                    <p><b>Необходимо <a href="{% url 'users:login' %}">авторизация</a></b></p>
+                {% endif %}
             </div>
         </div>
     </div>
